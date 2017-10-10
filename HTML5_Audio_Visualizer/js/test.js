@@ -1,3 +1,28 @@
+function Song(instruments, bars, startTime, eighthNoteTime) {
+  this.instruments = instruments;
+  this.bars = bars;
+  this.startTime = startTime;
+  this.eighthNoteTime = eighthNoteTime;
+}
+//
+Song.prototype.play = function () {
+  // TODO get rid of
+  // these hardcoded things
+
+  var kick = this.instruments[0];
+  var hihat = this.instruments[1];
+
+  var startTime = 0;
+  for(var instrument = 0; instrument < this.instruments.length; instrument++) {
+    for (var bar = 0; bar < this.bars[instrument].length; bar++) {
+      if(this.bars[instrument][bar] == 1) {
+        var time = startTime + bar * this.eighthNoteTime;
+        playSound(this.instruments[instrument], time);
+      }
+    }
+  }
+}
+
 window.onload = init;
 var context;
 var bufferLoader;
@@ -67,15 +92,32 @@ function init() {
   bufferLoader.load();
 }
 
+function playSound(buffer, time) {
+  var source = context.createBufferSource();
+  source.buffer = buffer;
+  source.connect(context.destination);
+  source.start(time);
+}
+
 function finishedLoading(bufferList) {
   // Create two sources and play them both together.
   var source1 = context.createBufferSource();
   var source2 = context.createBufferSource();
+  // source1.buffer = bufferList[0];
+  // source2.buffer = bufferList[1];
   source1.buffer = bufferList[0];
   source2.buffer = bufferList[1];
+  kick = source1.buffer;
+  hihat = source2.buffer;
 
-  source1.connect(context.destination);
-  source2.connect(context.destination);
-  source1.start(0);
-  source2.start(0);
+  var instruments = [ kick, hihat ];
+  var startTime = 0;
+  var eighthNoteTime = 1;
+  var bars =  [
+                [1, 0, 1, 0],
+                [0, 1, 0, 1]
+              ]
+  var song = new Song(instruments, bars, startTime, eighthNoteTime);
+
+  song.play();
 }
