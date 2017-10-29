@@ -2,18 +2,18 @@ var sampleArray =
 [
   '../CuratedSamples/kick-vinyl01.wav',
   '../CuratedSamples/openhat-808.wav',
-  '../CuratedSamples/FatboyTight-c3.wav',
-  '../CuratedSamples/FatboyTight-cs3.wav',
-  '../CuratedSamples/FatboyTight-d3.wav',
-  '../CuratedSamples/FatboyTight-ds3.wav',
-  '../CuratedSamples/FatboyTight-e3.wav',
-  '../CuratedSamples/FatboyTight-f3.wav',
-  '../CuratedSamples/FatboyTight-fs3.wav',
-  '../CuratedSamples/FatboyTight-g3.wav',
-  '../CuratedSamples/FatboyTight-gs3.wav',
-  '../CuratedSamples/FatboyTight-a4.wav',
-  '../CuratedSamples/FatboyTight-as4.wav',
-  '../CuratedSamples/FatboyTight-b4.wav'
+  '../CuratedSamples/FatboyTight-c3-short.wav',
+  '../CuratedSamples/FatboyTight-cs3-short.wav',
+  '../CuratedSamples/FatboyTight-d3-short.wav',
+  '../CuratedSamples/FatboyTight-ds3-short.wav',
+  '../CuratedSamples/FatboyTight-e3-short.wav',
+  '../CuratedSamples/FatboyTight-f3-short.wav',
+  '../CuratedSamples/FatboyTight-fs3-short.wav',
+  '../CuratedSamples/FatboyTight-g3-short.wav',
+  '../CuratedSamples/FatboyTight-gs3-short.wav',
+  '../CuratedSamples/FatboyTight-a4-short.wav',
+  '../CuratedSamples/FatboyTight-as4-short.wav',
+  '../CuratedSamples/FatboyTight-b4-short.wav'
 ];
 
 function Song(instruments, bars, startTime, eighthNoteTime) {
@@ -145,40 +145,6 @@ function finishedLoading(bufferList) {
                 [], // bass A#
                 [], // bass B
               ];
-
-  // for(var i = 0; i < 16; i++) {
-  //   bars[0][i] = 1;
-  // }
-  // for(var i = 1; i < 2; i++) {
-  //   // process bars in 4:4 time, repeat drum patterns in sets of 4 going ABAC
-  //   var A = [];
-  //   var B = [];
-  //   var C = [];
-  //
-  //   // Generate an A
-  //   for(var j = 0; j < 4; j++ ) {
-  //     A[j] = 1;
-  //   }
-  //   // Generate B
-  //   for(var j = 0; j < 4; j++) {
-  //     B[j] = Math.floor(Math.random()*2);
-  //   }
-  //   // Generate C
-  //   for(var j = 0; j < 4; j++) {
-  //     C[j] = Math.floor(Math.random()*2);
-  //   }
-  //
-  //   bars[i] = bars[i].concat(A);
-  //   bars[i] = bars[i].concat(B);
-  //   bars[i] = bars[i].concat(A);
-  //   bars[i] = bars[i].concat(C);
-  // }
-  // console.log(bars);
-
-  // some cellular automata stuff since ML is hard
-  // for (var i = 0; i < 10; i ++) {
-  //
-  // }
 
   var radix = 2;
   var rule = 73;
