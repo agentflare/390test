@@ -114,9 +114,18 @@ function finishedLoading(bufferList) {
   var startTime = 0;
   var eighthNoteTime = 1;
   var bars =  [
-                [1, 0, 1, 0],
-                [0, 1, 0, 1]
+                [1, 1, 0, 1],
+                [0, 0, 1, 1]
               ]
+
+  for(var i = 0; i < 2; i++) {
+    for(var j = 0; j < 4; j++) {
+      bars[i][j] = Math.floor(Math.random()*2);
+    }
+  }
+
+  console.log(bars);
+
   var song = new Song(instruments, bars, startTime, eighthNoteTime);
 
   song.play();
