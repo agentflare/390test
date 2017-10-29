@@ -1,3 +1,21 @@
+var sampleArray =
+[
+  '../CuratedSamples/kick-vinyl01.wav',
+  '../CuratedSamples/openhat-808.wav',
+  '../CuratedSamples/FatboyTight-c3.wav',
+  '../CuratedSamples/FatboyTight-cs3.wav',
+  '../CuratedSamples/FatboyTight-d3.wav',
+  '../CuratedSamples/FatboyTight-ds3.wav',
+  '../CuratedSamples/FatboyTight-e3.wav',
+  '../CuratedSamples/FatboyTight-f3.wav',
+  '../CuratedSamples/FatboyTight-fs3.wav',
+  '../CuratedSamples/FatboyTight-g3.wav',
+  '../CuratedSamples/FatboyTight-gs3.wav',
+  '../CuratedSamples/FatboyTight-a4.wav',
+  '../CuratedSamples/FatboyTight-as4.wav',
+  '../CuratedSamples/FatboyTight-b4.wav'
+];
+
 function Song(instruments, bars, startTime, eighthNoteTime) {
   this.instruments = instruments;
   this.bars = bars;
@@ -6,12 +24,6 @@ function Song(instruments, bars, startTime, eighthNoteTime) {
 }
 //
 Song.prototype.play = function () {
-  // TODO get rid of
-  // these hardcoded things
-
-  var kick = this.instruments[0];
-  var hihat = this.instruments[1];
-
   var startTime = 0;
   for(var instrument = 0; instrument < this.instruments.length; instrument++) {
     for (var bar = 0; bar < this.bars[instrument].length; bar++) {
@@ -23,7 +35,10 @@ Song.prototype.play = function () {
   }
 }
 
-window.onload = init;
+// window.onload = init;
+
+document.getElementById("click").onclick = init;
+
 var context;
 var bufferLoader;
 
@@ -74,6 +89,7 @@ BufferLoader.prototype.load = function() {
   this.loadBuffer(this.urlList[i], i);
 }
 
+var automata = automata;
 
 function init() {
   // Fix up prefixing
@@ -82,10 +98,7 @@ function init() {
 
   bufferLoader = new BufferLoader(
     context,
-    [
-      '../CuratedSamples/kick-vinyl01.wav',
-      '../CuratedSamples/openhat-808.wav',
-    ],
+    sampleArray,
     finishedLoading
     );
 
@@ -101,29 +114,87 @@ function playSound(buffer, time) {
 
 function finishedLoading(bufferList) {
   // Create two sources and play them both together.
-  var source1 = context.createBufferSource();
-  var source2 = context.createBufferSource();
-  // source1.buffer = bufferList[0];
-  // source2.buffer = bufferList[1];
-  source1.buffer = bufferList[0];
-  source2.buffer = bufferList[1];
-  kick = source1.buffer;
-  hihat = source2.buffer;
+  var sources = [];
+  var instruments = [];
 
-  var instruments = [ kick, hihat ];
-  var startTime = 0;
-  var eighthNoteTime = 1;
-  var bars =  [
-                [1, 1, 0, 1],
-                [0, 0, 1, 1]
-              ]
-
-  for(var i = 0; i < 2; i++) {
-    for(var j = 0; j < 4; j++) {
-      bars[i][j] = Math.floor(Math.random()*2);
-    }
+  for( var i = 0; i < sampleArray.length; i++) {
+    sources.push(context.createBufferSource());
+    sources[i] = bufferList[i];
+    instruments.push(sources[i]);
   }
+  sources[0].buffer = bufferList[0];
+  sources[1].buffer = bufferList[1];
+  kick = sources[0].buffer;
+  hihat = sources[1].buffer;
 
+  var startTime = 0;
+  var eighthNoteTime = 0.5;
+  var bars =  [
+                [], // kick
+                [], // open hat
+                [], // bass C
+                [], // bass C#
+                [], // bass D
+                [], // bass D#
+                [], // bass E
+                [], // bass F
+                [], // bass F#
+                [], // bass G
+                [], // bass G#
+                [], // bass A
+                [], // bass A#
+                [], // bass B
+              ];
+
+  // for(var i = 0; i < 16; i++) {
+  //   bars[0][i] = 1;
+  // }
+  // for(var i = 1; i < 2; i++) {
+  //   // process bars in 4:4 time, repeat drum patterns in sets of 4 going ABAC
+  //   var A = [];
+  //   var B = [];
+  //   var C = [];
+  //
+  //   // Generate an A
+  //   for(var j = 0; j < 4; j++ ) {
+  //     A[j] = 1;
+  //   }
+  //   // Generate B
+  //   for(var j = 0; j < 4; j++) {
+  //     B[j] = Math.floor(Math.random()*2);
+  //   }
+  //   // Generate C
+  //   for(var j = 0; j < 4; j++) {
+  //     C[j] = Math.floor(Math.random()*2);
+  //   }
+  //
+  //   bars[i] = bars[i].concat(A);
+  //   bars[i] = bars[i].concat(B);
+  //   bars[i] = bars[i].concat(A);
+  //   bars[i] = bars[i].concat(C);
+  // }
+  // console.log(bars);
+
+  // some cellular automata stuff since ML is hard
+  // for (var i = 0; i < 10; i ++) {
+  //
+  // }
+
+  var radix = 2;
+  var rule = 73;
+  var optString = automata.stringify(rule, radix);
+
+  var initialConditions = function() { return Math.floor(Math.random() * radix); };
+  var lifeFunction = automata.generate(optString, radix);
+  var row = automata.initialRow(bars.length, initialConditions);
+  var wrap = function() { return 0; }
+
+  var nextRow = row;
+
+  for (var n = 0; n < 20; n++) {
+    nextRow = automata.cellularlyAutomate(nextRow, wrap, lifeFunction);
+    bars[n] = nextRow;
+  }
   console.log(bars);
 
   var song = new Song(instruments, bars, startTime, eighthNoteTime);
