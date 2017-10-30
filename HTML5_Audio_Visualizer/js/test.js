@@ -1,19 +1,21 @@
+
+
 var sampleArray =
 [
   '../CuratedSamples/kick-vinyl01.wav',
   '../CuratedSamples/openhat-808.wav',
-  '../CuratedSamples/FatboyTight-c3-short.wav',
-  '../CuratedSamples/FatboyTight-cs3-short.wav',
-  '../CuratedSamples/FatboyTight-d3-short.wav',
-  '../CuratedSamples/FatboyTight-ds3-short.wav',
-  '../CuratedSamples/FatboyTight-e3-short.wav',
-  '../CuratedSamples/FatboyTight-f3-short.wav',
-  '../CuratedSamples/FatboyTight-fs3-short.wav',
-  '../CuratedSamples/FatboyTight-g3-short.wav',
-  '../CuratedSamples/FatboyTight-gs3-short.wav',
-  '../CuratedSamples/FatboyTight-a4-short.wav',
-  '../CuratedSamples/FatboyTight-as4-short.wav',
-  '../CuratedSamples/FatboyTight-b4-short.wav'
+  '../CuratedSamples/FatboyTight-c3.wav',
+  '../CuratedSamples/FatboyTight-cs3.wav',
+  '../CuratedSamples/FatboyTight-d3.wav',
+  '../CuratedSamples/FatboyTight-ds3.wav',
+  '../CuratedSamples/FatboyTight-e3.wav',
+  '../CuratedSamples/FatboyTight-f3.wav',
+  '../CuratedSamples/FatboyTight-fs3.wav',
+  '../CuratedSamples/FatboyTight-g3.wav',
+  '../CuratedSamples/FatboyTight-gs3.wav',
+  '../CuratedSamples/FatboyTight-a4.wav',
+  '../CuratedSamples/FatboyTight-as4.wav',
+  '../CuratedSamples/FatboyTight-b4.wav'
 ];
 
 function Song(instruments, bars, startTime, eighthNoteTime) {

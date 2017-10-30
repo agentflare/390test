@@ -5,20 +5,36 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>390 demo 1</title>
         <link type="text/css" rel="stylesheet" href="style/style.css">
+        
+        <link rel="stylesheet" href="css/style.css">
+        <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css' />
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="visualizer/bufferloader.js"></script>
+        <script src="visualizer/id3-minimized.js"></script>
+        <script src="visualizer/audiovisualisierung.js"></script>
     </head>
     <body>
         <div id="wrapper">
             <div id="fileWrapper" class="file_wrapper">
+                <input type="file" id="input" onchange="handleFiles(this.files)"/>
+                <button type="button" onClick="playSample()">Play Sample File</button>
+                <span id="loading"></span>
                 <div id="info">
-                    DEMO TODO: Visualizer
+                    <div id="song_info_wrapper">
+                        <div id="artist">Artist</div>
+                        <div id="title">Title</div>
+                        <div id="album">Album</div>
+                    </div>
+                    <canvas id="freq" width="1024" height="525"></canvas>
                 </div>
             </div>
             <div id="visualizer_wrapper">
                 <canvas id='canvas' width="800" height="350"></canvas>
             </div>
-            <div>
+            <!-- <div>
               <input id= 'click' type="button" value="Do things">
-            </div>
+            </div> -->
         </div>
         <!-- <script type="text/javascript" src="js/html5_audio_visualizer.js"></script> -->
         <script type="text/javascript" src="js/automata.js"></script>
