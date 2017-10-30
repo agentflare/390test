@@ -164,7 +164,7 @@ function playSample() {
 	request.addEventListener("error", transferFailed);
 	request.addEventListener("abort", transferCanceled);
 	
-	request.open('GET', 'src/Infinite.mp3', true);
+	request.open('GET', 'visualizer/Infinite.mp3', true);
 	request.responseType = 'arraybuffer';
 
  	// When loaded decode the data
